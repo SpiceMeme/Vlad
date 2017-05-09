@@ -1,0 +1,251 @@
+/*
+ * Decompiled with CFR 0_118.
+ * 
+ * Could not load the following classes:
+ *  net.milkbowl.vault.economy.Economy
+ *  org.bukkit.Bukkit
+ *  org.bukkit.ChatColor
+ *  org.bukkit.OfflinePlayer
+ *  org.bukkit.entity.Player
+ *  org.bukkit.event.EventHandler
+ *  org.bukkit.event.Listener
+ *  org.bukkit.event.player.PlayerJoinEvent
+ *  org.bukkit.scoreboard.DisplaySlot
+ *  org.bukkit.scoreboard.Objective
+ *  org.bukkit.scoreboard.Score
+ *  org.bukkit.scoreboard.Scoreboard
+ *  org.bukkit.scoreboard.Team
+ */
+package ru.kekinore.jedicraft;
+
+import java.lang.invoke.ConstantCallSite;
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
+import ru.kekinore.jedicraft.JediScoreBoard$Jabba;
+import ru.kekinore.jedicraft.Levels;
+import ru.kekinore.jedicraft.Levels$Levels;
+import ru.kekinore.jedicraft.Main;
+
+public class JediScoreBoard
+implements Listener {
+    List<Scoreboard> scb = new ArrayList<Scoreboard>();
+    static ArrayList<Player> jedi = new ArrayList();
+    static ArrayList<Player> sith = new ArrayList();
+    static ArrayList<Player> alliance = new ArrayList();
+    private static volatile transient Object[] \u4ba9;
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent playerJoinEvent) {
+        Player player = playerJoinEvent.getPlayer();
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        this.scb.add(scoreboard);
+        Team team = scoreboard.registerNewTeam(JediScoreBoard$Jabba.\u7096("\u3949\ubed4\uef8c\u7d9a\uecf2\u57b3\uedc5\uf712"));
+        team.setPrefix((String)JediScoreBoard.\ub7bd(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GRAY)));
+        Team team2 = scoreboard.registerNewTeam(JediScoreBoard$Jabba.\u7096("\u3942\ubedd\uef84\u7d9a"));
+        team2.setPrefix((String)JediScoreBoard.\ub7bd(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_AQUA)));
+        Team team3 = scoreboard.registerNewTeam(JediScoreBoard$Jabba.\u7096("\u395b\ubed1\uef94\u7d9b"));
+        team3.setPrefix((String)JediScoreBoard.\ub7bd(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_RED)));
+        player.setScoreboard(scoreboard);
+        JediScoreBoard.updateScoreboard(player);
+    }
+
+    public static void updateScoreboard(Player player) {
+        Objective objective2;
+        player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+        Scoreboard scoreboard = player.getScoreboard();
+        for (Objective objective2 : scoreboard.getObjectives()) {
+            objective2.unregister();
+        }
+        objective2 = scoreboard.registerNewObjective(JediScoreBoard$Jabba.\u7096("\udb1c\u71dd\u196b\u2d03\ub087"), JediScoreBoard$Jabba.\u7096("\udb2b\u71dc\u1967\u2d1a\ub08d"));
+        objective2.setDisplaySlot(DisplaySlot.SIDEBAR);
+        objective2.setDisplayName(ChatColor.translateAlternateColorCodes((char)'&', (String)JediScoreBoard$Jabba.\u7096("\udb69\u7198\u192c\u2d1b\ub0be\ub484\u942e\u684b\uada4\u74bb\u8f75\u258a\uae46\u28ea\u19b3\u97ac\u2548")));
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GREEN), JediScoreBoard$Jabba.\u7096("\udf5b\u759c\u1d37\u293b\ub4c7\ub0d9")))).setScore(14);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(new StringBuilder((String)JediScoreBoard.\u6106((long)Main.econ.getBalance((OfflinePlayer)player))))).setScore(13);
+        objective2.getScore("").setScore(12);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GREEN), JediScoreBoard$Jabba.\u7096("\udf6e\u75eb\u1d34\u2937\ub4ca\ub0dc\u907a")))).setScore(11);
+        if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player), JediScoreBoard$Jabba.\u7096("\udb05\u71cc\u196e\u2d1e")) != false) {
+            objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_AQUA), JediScoreBoard$Jabba.\u7096("\udf6e\u759b\u1d3f\u2935")))).setScore(10);
+        }
+        if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player), JediScoreBoard$Jabba.\u7096("\udb1c\u71c0\u197e\u2d1f")) != false) {
+            objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_RED), JediScoreBoard$Jabba.\u7096("\udf6d\u75e5\u1d36\u2947")))).setScore(10);
+        }
+        if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player), JediScoreBoard$Jabba.\u7096("\udb05\u71cc\u196e\u2d1e")) == false) {
+            if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player), JediScoreBoard$Jabba.\u7096("\udb1c\u71c0\u197e\u2d1f")) == false) {
+                objective2.getScore(JediScoreBoard$Jabba.\u7096("\udb62")).setScore(10);
+            }
+        }
+        objective2.getScore(JediScoreBoard$Jabba.\u7096("\udb6f")).setScore(9);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GREEN), JediScoreBoard$Jabba.\u7096("\udf6c\u7598\u1d32\u294e\ub4b5\ub0a3\u9078\u6c12")))).setScore(8);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), JediScoreBoard.\ub2e2(Levels.kills, player.getName())), JediScoreBoard$Jabba.\u7096("\udb6f\u7189\u192a")))).setScore(7);
+        objective2.getScore(JediScoreBoard$Jabba.\u7096("\udb6f\u7189")).setScore(6);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GREEN), JediScoreBoard$Jabba.\u7096("\udf6e\u7595\u1d3f\u2937\ub4b6\ub0d9")))).setScore(5);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), JediScoreBoard.\ub2e2(Levels.deaths, player.getName())), JediScoreBoard$Jabba.\u7096("\udb6f")))).setScore(4);
+        objective2.getScore(JediScoreBoard$Jabba.\u7096("\udb6f\u7189\u192a")).setScore(3);
+        objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GREEN), JediScoreBoard$Jabba.\u7096("\udf51\u7594\u1d31\u2947\ub4cd\ub0dc")))).setScore(2);
+        JediScoreBoard1.\u380b(jedi);
+        JediScoreBoard2.\u380b(sith);
+        JediScoreBoard3.\u380b(alliance);
+        for (Player player2 : Bukkit.getOnlinePlayers()) {
+            if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player2), JediScoreBoard$Jabba.\u7096("\udb05\u71cc\u196e\u2d1e")) != false) {
+                JediScoreBoard.\u9af2(jedi, player2);
+            }
+            if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player2), JediScoreBoard$Jabba.\u7096("\udb1c\u71c0\u197e\u2d1f")) != false) {
+                JediScoreBoard.\u9af2(sith, player2);
+            }
+            if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player2), JediScoreBoard$Jabba.\u7096("\udb05\u71cc\u196e\u2d1e")) != false) continue;
+            if (JediScoreBoard.\ub804(JediScoreBoard.\u04d6(player2), JediScoreBoard$Jabba.\u7096("\udb1c\u71c0\u197e\u2d1f")) != false) continue;
+            JediScoreBoard.\u9af2(alliance, player2);
+        }
+        if (JediScoreBoard.\u48b5(jedi, player) != false) {
+            objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u6821(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_AQUA), JediScoreBoard.\u8da3(jedi)))).setScore(1);
+            player.setPlayerListName((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_AQUA), player.getName())));
+        }
+        if (JediScoreBoard.\u48b5(sith, player) != false) {
+            objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u6821(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_RED), JediScoreBoard.\u8da3(sith)))).setScore(1);
+            player.setPlayerListName((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.DARK_RED), player.getName())));
+        }
+        if (JediScoreBoard.\u48b5(alliance, player) != false) {
+            objective2.getScore((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u6821(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GRAY), JediScoreBoard.\u8da3(alliance)))).setScore(1);
+            player.setPlayerListName((String)JediScoreBoard.\ub7bd(JediScoreBoard.\u40c3(JediScoreBoard.\uc3ed(new StringBuilder(), ChatColor.GRAY), player.getName())));
+        }
+    }
+
+    private static Object \u6821(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[8] == null) {
+            JediScoreBoard.\u4ba9[8] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\ua060\uf0c6\u181d\ub78c\u983d\u1f2f\u417d\ufeea\uda54\u11d6\ueb44\u8cca\ub9e4\ua1b8\ucbf8\u6db5\u3c46\u3bf1\u83c9\u0202\ua899\u10bd\uc83f")), Levels$Levels.\u6f16("\ua06b\uf0d7\u181b\ub788\u987d\u1f27"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[8];
+    }
+
+    private static Object \ub7bd(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[2] == null) {
+            JediScoreBoard.\u4ba9[2] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(JediScoreBoard$Jabba.\u7096("\u4279\u6abe\uc801\u79cf\u1b33\u55fd\ufb21\u5e83\u8947\ua629\u271d\u291e\ue83d\uf2a4\u0203\ud341\ud8e9\u0546\u89af\ud334\ud9a7\u05f5\u8899")), JediScoreBoard$Jabba.\u7096("\u4267\u6ab0\uc824\u79da\u1b6f\u55f8\ufb2e\u5e8a"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[2];
+    }
+
+    private static Object \ub2e2(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[5] == null) {
+            JediScoreBoard.\u4ba9[5] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\u8d20\u21d0\u38e0\ucf41\u7300\u7d83\uc8dd\ub223\u3f8f\u0cd8\ud26a\uf3d3\u466f\u6b12\u8987\u9197\u335f")), Levels$Levels.\u6f16("\u8d2d\u21d4\u38e2"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[5];
+    }
+
+    private static Object \u380b(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[6] == null) {
+            JediScoreBoard.\u4ba9[6] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(JediScoreBoard$Jabba.\u7096("\u27f3\u546c\u0e99\u7b87\u9c9c\u06f5\uc63e\u9165\u9674\ua871\u0adf\u5867\ub9be\uce7b\u7e6e\u95dc\u2a33\u0397\u9e4c")), JediScoreBoard$Jabba.\u7096("\u27fa\u5461\u0e8a\u7b87\u9cc0"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[6];
+    }
+
+    private static Object \u48b5(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[11] == null) {
+            JediScoreBoard.\u4ba9[11] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(JediScoreBoard$Jabba.\u7096("\u9563\u9729\udb79\ucad8\u7450\u02e2\uf4f9\u3dd8\u20fd\u73d3\ua0d2\u4f73\uddea\udeb2\ub429\u6688\u24df\u6a48\ueadb")), JediScoreBoard$Jabba.\u7096("\u956a\u9727\udb61\ucacd\u741f\u02fe\uf4e3\u3dc2"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[11];
+    }
+
+    private static Object \u04d6(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[7] == null) {
+            JediScoreBoard.\u4ba9[7] = new ConstantCallSite(MethodHandles.lookup().findStatic(Class.forName(JediScoreBoard$Jabba.\u7096("\ua5f1\u9dd4\uf322\uf5c8\ucf7b\u54e2\u6ebc\ud544\ub56a\ufab7\ub6d0\udfb5\ubadc\udbda\ua617\u4318\u4edb\ucae7\ueeb4\u447f\ue91f\u9b73\u8dc0\u6a63\uc0f8\u0b8c\u5c4b\ub293")), JediScoreBoard$Jabba.\u7096("\ua5e4\u9dc4\uf378\uf5f0\ucf77\u54ed\u6eb0"), methodType).asType(methodType));
+        }
+        return \u4ba9[7];
+    }
+
+    private static Object \u9af2(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[4] == null) {
+            JediScoreBoard.\u4ba9[4] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\uda85\u2fc1\u8805\u63c5\u14cc\ue627\u2623\u7a11\udc96\ucc97\u59dd\u81fd\ubc70\ue344\u6554\ud15b\ua12b\u8f26\u1cdf")), Levels$Levels.\u6f16("\uda8e\u2fc4\u8817"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[4];
+    }
+
+    private static Object \u40c3(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[0] == null) {
+            JediScoreBoard.\u4ba9[0] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(JediScoreBoard$Jabba.\u7096("\u6063\ud9c0\uc7ed\uacca\u3f6e\u1a4c\u1c82\u32e8\u11d9\u2ae6\u4499\ueb1b\u11bd\u93d0\u7939\u428f\u8df7\u5bbe\ud3fa\u6b97\ufaa7\u2e8e\u3120")), JediScoreBoard$Jabba.\u7096("\u6068\ud9d1\uc7eb\uacce\u3f2e\u1a44"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[0];
+    }
+
+    private static Object \ub804(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[10] == null) {
+            JediScoreBoard.\u4ba9[10] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\u8eba\uf8e3\u0272\u4a6c\u884b\uf405\ucd5d\uf97d\u45c8\u19cd\u0269\udcac\u3633\u07d9\u315e\u00c5")), Levels$Levels.\u6f16("\u8eb5\uf8f3\u0271\u4a6c\u8809\uf41a\ucd75\uf974\u45c1\u198c\u0248\udcbd\u3602\u07d1\u3143\u00c7"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[10];
+    }
+
+    private static Object \u6106(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[3] == null) {
+            JediScoreBoard.\u4ba9[3] = new ConstantCallSite(MethodHandles.lookup().findStatic(Class.forName(JediScoreBoard$Jabba.\u7096("\ud074\u250f\ue6cb\u3b07\u04a1\uf4d8\udfad\ud1a4\u9ae0\u2e92\u754e\u5232\u3e94\u046a\u6d58\uca37")), JediScoreBoard$Jabba.\u7096("\ud068\u250f\ue6d1\u3b13\u04ea\uf4fb\udfaa"), methodType).asType(methodType));
+        }
+        return \u4ba9[3];
+    }
+
+    private static Object \u8da3(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[9] == null) {
+            JediScoreBoard.\u4ba9[9] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\ue63c\u64b4\u1447\ub177\u616d\ue2d9\uebba\ubabd\ud2c2\u60b6\u5c28\u71f1\u7188\ua48d\u6b39\uc44a\ued73\u8c47\ua376")), Levels$Levels.\u6f16("\ue625\u64bc\u144b\ub173"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[9];
+    }
+
+    private static Object \uc3ed(Object object, String string, MethodType methodType) {
+        if (\u4ba9 == null) {
+            \u4ba9 = new Object[12];
+        }
+        if (\u4ba9[1] == null) {
+            JediScoreBoard.\u4ba9[1] = new ConstantCallSite(MethodHandles.lookup().findVirtual(Class.forName(Levels$Levels.\u6f16("\ue130\uc278\u8e4b\u402e\u8c61\u1a25\u4744\u50f2\u7910\u3f90\uab93\u38a3\u73a5\uc65f\uea8c\u6a92\u34c1\ua953\u85cb\u9ec0\ufe21\ubd00\u835e")), Levels$Levels.\u6f16("\ue13b\uc269\u8e4d\u402a\u8c21\u1a2d"), methodType.dropParameterTypes(0, 1)).asType(methodType));
+        }
+        return \u4ba9[1];
+    }
+}
+
