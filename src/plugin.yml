@@ -1,0 +1,10 @@
+name: Rtpmire
+main: me.SpicyMeme.py.Main
+description: Rtp to World.
+version: 1.0
+author: Spicy_Meme
+
+commands:
+    setrtp:
+        usage: /<command> <name>
+        description: Post to teleport.
