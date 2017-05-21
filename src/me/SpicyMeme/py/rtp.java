@@ -11,10 +11,8 @@ public class rtp implements Listener, CommandExecutor {
 	
 	
 	
-	public boolean abs(CommandSender sender, String[] args){
+	public boolean abs(CommandSender sender){
 		if(sender instanceof Player){
-			if(args.length == 0){
-			}
 			return false;
 		}
 		return true;
@@ -22,7 +20,7 @@ public class rtp implements Listener, CommandExecutor {
 
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (command.getName().equalsIgnoreCase("setrtp")){
-			if (abs(sender, args)){
+			if (abs(sender)){
 				sender.sendMessage("No player and args");
 				return true;
 			}
@@ -30,7 +28,7 @@ public class rtp implements Listener, CommandExecutor {
 			
 		Player p = (Player) sender;
 		Main.instance.LocToConfig(args[0], p.getLocation());
-		p.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', "Точка поставлена!"));
+		p.sendMessage(ChatColor.translateAlternateColorCodes((char)'&', "Г’Г®Г·ГЄГ  ГЇГ®Г±ГІГ ГўГ«ГҐГ­Г !"));
 		return true;
 	}
 	
